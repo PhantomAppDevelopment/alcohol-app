@@ -5,7 +5,7 @@ Alcohol App is a mobile application developed with Starling Framework and Feathe
 It uses the following APIs and technologies:
 
   - Yelp V2 API (JSON)
-  - OAuth 1.0a adapted from [(Twitter for AS3)](https://github.com/susisu/Twitter-for-AS3)
+  - OAuth 1.0a adapted from [Twitter for AS3](https://github.com/susisu/Twitter-for-AS3)
   - OpenStreetMaps using the [AS3 Starling/Feathers maps](https://github.com/ZwickTheGreat/feathers-maps)
 
 Some of the techniques covered are:
