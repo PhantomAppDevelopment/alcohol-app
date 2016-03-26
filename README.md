@@ -28,4 +28,4 @@ AIR 21 is recommended but it can work with earlier versions, such as 20, 19 or 1
 
 You can test this app by downloading it directly from Google Play.
 
-[![Download](https://play.google.com/intl/en_us/badges/images/generic/en-play-badge.png =200x60)](https://play.google.com/store/apps/details?id=air.im.phantom.alcohol)
+[![Download](http://i.imgur.com/He0deVa.png)](https://play.google.com/store/apps/details?id=air.im.phantom.alcohol)
