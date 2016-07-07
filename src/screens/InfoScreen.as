@@ -23,9 +23,7 @@ package screens
 			
 			var doneIcon:ImageLoader = new ImageLoader();
 			doneIcon.source = "assets/icons/ic_done_white_36dp.png";
-			doneIcon.width = 30;
-			doneIcon.height = 30;
-			doneIcon.snapToPixels = true;
+			doneIcon.width = doneIcon.height = 30;
 			
 			var doneButton:Button = new Button();
 			doneButton.width = 50;

@@ -1,6 +1,5 @@
 package servicesScreens
 {
-	import com.hurlant.crypto.symmetric.NullPad;
 	
 	import flash.geom.Point;
 	import flash.net.URLRequest;
@@ -20,13 +19,16 @@ package servicesScreens
 	import feathers.controls.PanelScreen;
 	import feathers.controls.text.TextBlockTextRenderer;
 	import feathers.core.ITextRenderer;
+	import feathers.events.FeathersEventType;
 	import feathers.layout.AnchorLayout;
 	import feathers.layout.AnchorLayoutData;
+	import feathers.layout.HorizontalAlign;
+	import feathers.layout.VerticalAlign;
 	
 	import starling.display.DisplayObject;
 	import starling.display.Quad;
 	import starling.events.Event;
-	import starling.filters.BlurFilter;
+	import starling.filters.DropShadowFilter;
 	
 	public class VenueDetailsScreen extends PanelScreen
 	{
@@ -49,8 +51,6 @@ package servicesScreens
 		{
 			super.initialize();
 			
-			this.addEventListener(starling.events.Event.RESIZE, resizeHandler);
-			
 			this.title = "Details";
 			this.layout = new AnchorLayout();
 			this.backButtonHandler = goBack;
@@ -58,7 +58,6 @@ package servicesScreens
 			var ratingsIcon:ImageLoader = new ImageLoader();
 			ratingsIcon.source = "assets/icons/ic_stars_white_48pt_3x.png";
 			ratingsIcon.width = ratingsIcon.height = 30;
-			ratingsIcon.snapToPixels = true;
 			
 			var ratingsButton:Button = new Button();
 			ratingsButton.width = ratingsButton.height = 50;
@@ -72,7 +71,6 @@ package servicesScreens
 			var doneIcon:ImageLoader = new ImageLoader();
 			doneIcon.source = "assets/icons/ic_done_white_36dp.png";
 			doneIcon.width = doneIcon.height = 30;
-			doneIcon.snapToPixels = true;
 			
 			var doneButton:Button = new Button();
 			doneButton.width = doneButton.height = 50;
@@ -80,30 +78,35 @@ package servicesScreens
 			doneButton.defaultIcon = doneIcon;
 			doneButton.addEventListener(starling.events.Event.TRIGGERED, goBack);
 			this.headerProperties.rightItems = new <DisplayObject>[doneButton];
-			
+									
+			this.addEventListener(FeathersEventType.TRANSITION_IN_COMPLETE, transitionComplete);
+		}
+		
+		private function transitionComplete(event:Event):void
+		{
+			this.removeEventListener(FeathersEventType.TRANSITION_IN_COMPLETE, transitionComplete);
+		
 			var mapOptions:MapOptions = new MapOptions();
-			mapOptions.initialCenter = new Point(Number(this._data.businessinfo.location.coordinate.longitude), Number(this._data.businessinfo.location.coordinate.latitude)-0.005);
+			mapOptions.initialCenter = new Point(Number(this._data.businessinfo.location.coordinate.longitude), Number(this._data.businessinfo.location.coordinate.latitude));
 			mapOptions.initialScale = 1 / 8;
 			mapOptions.minimumScale = 1 / 64;
 			mapOptions.maximumScale = 1 / 2;
 			mapOptions.disableRotation = true;
 			
 			geoMap = new GeoMap(mapOptions);
-			geoMap.setSize(stage.stageWidth, stage.stageHeight - 50);
-			geoMap.x = geoMap.y = 0;
+			geoMap.layoutData = new AnchorLayoutData(0, 0, 0, 0, NaN, NaN);
 			this.addChild(geoMap);
 			
-			var googleMaps:MapLayerOptions = Maps.OSM;
-			googleMaps.notUsedZoomThreshold = 1;
-			geoMap.addLayer("googleMaps", googleMaps);
-
+			var osMaps:MapLayerOptions = Maps.OSM;
+			osMaps.notUsedZoomThreshold = 1;
+			geoMap.addLayer("osMaps", osMaps);
+			
 			var myMarker:ImageLoader = new ImageLoader();
 			myMarker.source = "assets/icons/ic_location_on_white_48dp.png";
-			myMarker.width = 40;
-			myMarker.height = 40;
-			myMarker.snapToPixels = true;
+			myMarker.width = myMarker.height = 50;
+			myMarker.alignPivot(HorizontalAlign.CENTER, VerticalAlign.BOTTOM);
 			myMarker.color = 0xBD0D04;
-			myMarker.filter = BlurFilter.createDropShadow(4, 0.75, 0x000000);
+			myMarker.filter = new DropShadowFilter(4, 0.75, 0x000000);
 			
 			geoMap.addMarkerLongLat("marker", this._data.businessinfo.location.coordinate.longitude, this._data.businessinfo.location.coordinate.latitude, myMarker);
 			
@@ -145,35 +148,27 @@ package servicesScreens
 					return renderer;
 				}			
 			}
-		
+			
 			if(this._data.businessinfo.phone != undefined)
 			{
 				var phoneIcon:ImageLoader = new ImageLoader();
 				phoneIcon.source = "assets/icons/ic_local_phone_white_36dp.png";
-				phoneIcon.width = 50;
-				phoneIcon.height = 50;
-				phoneIcon.snapToPixels = true;
+				phoneIcon.width = phoneIcon.height = 50;
 				phoneIcon.color = 0x00E8ED;
 				
 				var phoneButton:Button = new Button();
 				phoneButton.addEventListener(starling.events.Event.TRIGGERED, function():void
-					{
-						navigateToURL(new URLRequest("tel:"+_data.businessinfo.phone));
-					});
+				{
+					navigateToURL(new URLRequest("tel:"+_data.businessinfo.phone));
+				});
 				phoneButton.defaultIcon = phoneIcon;
-				phoneButton.width = 50;
-				phoneButton.height = 50;
+				phoneButton.width = phoneButton.height = 50;
 				phoneButton.layoutData = new AnchorLayoutData(10, 15, 10, NaN, NaN);
 				bottomGroup.addChild(phoneButton);
 			}
-			
 		}
 		
-		private function resizeHandler(event:starling.events.Event):void
-		{
-			geoMap.setSize(stage.stageWidth, stage.stageHeight - 50);
-		}
-		
+				
 		private function goBack():void
 		{
 			this.dispatchEventWith(starling.events.Event.COMPLETE);

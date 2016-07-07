@@ -9,6 +9,7 @@ package cz.j4w.map {
 	import starling.animation.Tween;
 	import starling.core.Starling;
 	import starling.display.DisplayObject;
+	import starling.display.Quad;
 	import starling.display.Sprite;
 	import starling.events.EnterFrameEvent;
 	import starling.events.Touch;
@@ -34,7 +35,7 @@ package cz.j4w.map {
 		protected var mapViewPort:Rectangle;
 		protected var centerBackup:Point;
 		
-		private var _scale:int;
+		private var _scaleRatio:int;
 		private var _zoom:int;
 		
 		public function Map(mapOptions:MapOptions) {
@@ -71,7 +72,7 @@ package cz.j4w.map {
 		}
 		
 		override protected function draw():void {
-			clipRect = new Rectangle(0, 0, scaledActualWidth, scaledActualHeight);
+			mask = new Quad(scaledActualWidth, scaledActualHeight);
 			setCenter(centerBackup);
 		}
 		
@@ -180,29 +181,18 @@ package cz.j4w.map {
 			return _zoom;
 		}
 		
-		//Comment this function for Starling 1.7 or lower
-		
-		override public function get scale():Number
-		{
-			return _scale;
+		public function get scaleRatio():int {
+			return _scaleRatio;
 		}
-		
-		/*
-		Uncomment this function for Starling 1.7 or lowe 
-		
-		public function get scale():int {
-			return _scale;
-		}
-		*/
 		
 		private function updateZoomAndScale():void {
-			_scale = 1;
+			_scaleRatio = 1;
 			var z:int = int(1 / touchSheet.scaleX);
-			while (_scale < z) {
-				_scale <<= 1;
+			while (_scaleRatio < z) {
+				_scaleRatio <<= 1;
 			}
 			
-			var s:uint = _scale;
+			var s:uint = _scaleRatio;
 			_zoom = 1;
 			while (s > 1) {
 				s >>= 1;

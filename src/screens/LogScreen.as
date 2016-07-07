@@ -37,7 +37,6 @@ package screens
 			doneIcon.source = "assets/icons/ic_done_white_36dp.png";
 			doneIcon.width = 30;
 			doneIcon.height = 30;
-			doneIcon.snapToPixels = true;
 			
 			var doneButton:Button = new Button();
 			doneButton.width = 50;
@@ -76,20 +75,21 @@ package screens
 					return item.alcohol + "% - " + item.quantity + " drinks in " + item.period + " hour(s)" + "\n" + new Date(item.date*1).toLocaleString();
 				};
 				
-				renderer.iconFunction = function(item:Object):ImageLoader
+				renderer.iconLoaderFactory = function():ImageLoader
 				{
 					var icon:ImageLoader = new ImageLoader();
-					icon.width = icon.height = 50;
-					icon.snapToPixels = true;
-					
-					if(item.gender == "male"){
-						icon.source = "assets/icons/man.png";
-					} else {
-						icon.source = "assets/icons/woman.png";
-					}
-					
+					icon.width = icon.height = 40;
 					return icon;
-				};
+				}
+				
+				renderer.iconSourceFunction = function(item:Object):String
+				{
+					if(item.gender == "male"){
+						return "assets/icons/man.png";
+					} else {
+						return "assets/icons/woman.png";
+					}					
+				}
 				
 				renderer.accessoryFunction = function(item:Object):ImageLoader
 				{
@@ -97,7 +97,6 @@ package screens
 					image.source = "assets/icons/warning_small.png";
 					image.width = image.height = 40;
 					image.paddingRight = 10;
-					image.snapToPixels = true;
 					image.color = item.color;
 					
 					return image;

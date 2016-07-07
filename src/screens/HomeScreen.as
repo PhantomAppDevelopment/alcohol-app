@@ -7,7 +7,6 @@ package screens
 	import feathers.events.FeathersEventType;
 	import feathers.layout.HorizontalLayout;
 	import feathers.layout.HorizontalLayoutData;
-	import feathers.layout.TiledRowsLayout;
 	import feathers.layout.VerticalLayout;
 	import feathers.layout.VerticalLayoutData;
 	
@@ -51,7 +50,6 @@ package screens
 			alcoholTestIcon.source = "assets/icons/ic_local_bar_white_48dp.png";
 			alcoholTestIcon.width = 100;
 			alcoholTestIcon.height = 100;
-			alcoholTestIcon.snapToPixels = true;
 			alcoholTestIcon.color = 0x00E8ED;
 			
 			var alcoholTestButton:Button = new Button();
@@ -68,9 +66,7 @@ package screens
 						
 			var servicesIcon:ImageLoader = new ImageLoader();
 			servicesIcon.source = "assets/icons/ic_location_on_white_48dp.png";
-			servicesIcon.width = 100;
-			servicesIcon.height = 100;
-			servicesIcon.snapToPixels = true;
+			servicesIcon.width = servicesIcon.height = 100;
 			servicesIcon.color = 0x00E8ED;
 			
 			var servicesButton:Button = new Button();
@@ -87,9 +83,7 @@ package screens
 									
 			var logIcon:ImageLoader = new ImageLoader();
 			logIcon.source = "assets/icons/ic_content_paste_white_48dp.png";
-			logIcon.width = 100;
-			logIcon.height = 100;
-			logIcon.snapToPixels = true;
+			logIcon.width = logIcon.height = 100;
 			logIcon.color = 0x00E8ED;
 			
 			var logButton:Button = new Button();
@@ -106,9 +100,7 @@ package screens
 
 			var infoIcon:ImageLoader = new ImageLoader();
 			infoIcon.source = "assets/icons/ic_info_outline_white_48dp.png";
-			infoIcon.width = 100;
-			infoIcon.height = 100;
-			infoIcon.snapToPixels = true;
+			infoIcon.width = infoIcon.height = 100;
 			infoIcon.color = 0x00E8ED;
 			
 			var infoButton:Button = new Button();

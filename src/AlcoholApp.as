@@ -3,7 +3,6 @@ package
 	
 	import flash.data.SQLConnection;
 	import flash.data.SQLStatement;
-	import flash.display.Bitmap;
 	import flash.display.Loader;
 	import flash.display.Sprite;
 	import flash.display.StageAlign;
@@ -23,8 +22,8 @@ package
 	{
 		public static var conn:SQLConnection;
 		
-		private var _starling:Starling;
-		private var _scaler:ScreenDensityScaleFactorManager;
+		private var myStarling:Starling;
+		private var myScaler:ScreenDensityScaleFactorManager;
 		private var _launchImage:Loader;
 		private var _savedAutoOrients:Boolean;
 		
@@ -62,28 +61,28 @@ package
 		
 		private function loaderInfo_completeHandler(event:Event):void
 		{			
-			Starling.handleLostContext = true;
 			Starling.multitouchEnabled = true;
 			
-			this._starling = new Starling(Main, this.stage, null, null, Context3DRenderMode.AUTO, "auto");
-			this._scaler = new ScreenDensityScaleFactorManager(this._starling);
-			this._starling.enableErrorChecking = false;
-			//this._starling.showStats = true;
+			this.myStarling = new Starling(Main, this.stage, null, null, Context3DRenderMode.AUTO, "auto");
+			this.myScaler = new ScreenDensityScaleFactorManager(this.myStarling);
+			this.myStarling.enableErrorChecking = false;
+			this.myStarling.skipUnchangedFrames = true;
+			//this.myStarling.showStats = true;
 			
-			this._starling.start();									
+			this.myStarling.start();									
 			this.stage.addEventListener(Event.DEACTIVATE, stage_deactivateHandler, false, 0, true);
 		}
 		
 		private function stage_deactivateHandler(event:Event):void
 		{
-			this._starling.stop();
+			this.myStarling.stop();
 			this.stage.addEventListener(Event.ACTIVATE, stage_activateHandler, false, 0, true);
 		}
 		
 		private function stage_activateHandler(event:Event):void
 		{
 			this.stage.removeEventListener(Event.ACTIVATE, stage_activateHandler);
-			this._starling.start();
+			this.myStarling.start();
 		}
 		
 	}

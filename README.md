@@ -1,4 +1,4 @@
-# Alcohol App 1.0.0
+# Alcohol App 1.1.0
 
 Alcohol App is a mobile application developed with Starling Framework and FeathersUI. It showcases several APIs and mobile specific techniques.
 
@@ -20,7 +20,7 @@ Some of the techniques covered are:
 
 To compile this application you require to provide your own Yelp API keys which can be obtained for free on the Yelp developer portal, you will also require the [AS3 Crypto](http://crypto.hurlant.com/demo/as3crypto.swc) library.
 
-AIR 21 is recommended but it can work with earlier versions, such as 20, 19 or 18.
+You will also need AIR 21 or greater, FeathersUI 3.0.2 and Starling 2.0.1.
 
 [![Watch on Youtube](http://i.imgur.com/kDfzKKj.png)](https://www.youtube.com/watch?v=0GGMO9TBdbE)
 

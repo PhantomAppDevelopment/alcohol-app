@@ -23,7 +23,6 @@ package screens
 	import starling.core.Starling;
 	import starling.display.DisplayObject;
 	import starling.events.Event;
-	import starling.filters.BlurFilter;
 	
 	public class TestScreen extends PanelScreen
 	{
@@ -57,7 +56,7 @@ package screens
 			this.layout = new AnchorLayout();
 			this.backButtonHandler = goBack;
 			
-			this.title = "Drinking Period of Time";
+			this.title = "Drinking Time Period";
 				
 		 	periodList = new SpinnerList();
 			periodList.layoutData = new AnchorLayoutData(NaN, NaN,NaN, NaN, 0, -50);
@@ -83,10 +82,10 @@ package screens
 			startButton = new Button();
 			startButton.addEventListener(starling.events.Event.TRIGGERED, function():void
 			{
-				drinkingPeriod = Number(periodList.selectedItem.data);
-			
 				startButton.removeEventListener(starling.events.Event.TRIGGERED, function():void{});
 				
+				drinkingPeriod = Number(periodList.selectedItem.data);
+							
 				var tween:Tween = new Tween(startButton, 0.3);
 				tween.fadeTo(0);
 				tween.onComplete = function():void
@@ -117,23 +116,21 @@ package screens
 			
 			var womanIcon:ImageLoader = new ImageLoader();
 			womanIcon.source = "assets/icons/woman.png";
-			womanIcon.snapToPixels = true;
 			womanIcon.width = 92;
 			womanIcon.height = 200;
 			womanIcon.color = 0x00E8ED;
-			womanIcon.filter = BlurFilter.createGlow(0x0000E8ED, 1.0, 10);
 			
 			womanButton = new Button();
 			womanButton.alpha = 0;
 			womanButton.addEventListener(starling.events.Event.TRIGGERED, function():void
 			{
+				womanButton.removeEventListener(starling.events.Event.TRIGGERED, function():void{});
+				manButton.removeEventListener(starling.events.Event.TRIGGERED, function():void{});
+				
 				gender = "female";
 				metabolismRate = 0.017;
 				bodyWater = 0.49;
-				
-				manButton.removeEventListener(starling.events.Event.TRIGGERED, function():void{});
-				womanButton.removeEventListener(starling.events.Event.TRIGGERED, function():void{});
-								
+												
 				var fade1:Tween = new Tween(womanButton, 0.3);
 				fade1.fadeTo(0);
 				
@@ -166,7 +163,6 @@ package screens
 			
 			var manIcon:ImageLoader = new ImageLoader();
 			manIcon.source = "assets/icons/man.png";
-			manIcon.snapToPixels = true;
 			manIcon.width = 92;
 			manIcon.height = 200;
 			manIcon.color = 0x00E8ED;
@@ -175,13 +171,13 @@ package screens
 			manButton.alpha = 0;			
 			manButton.addEventListener(starling.events.Event.TRIGGERED, function():void
 			{
-				gender = "male";
-				metabolismRate = 0.015;
-				bodyWater = 0.58;
-	
 				manButton.removeEventListener(starling.events.Event.TRIGGERED, function():void{});
 				womanButton.removeEventListener(starling.events.Event.TRIGGERED, function():void{});
 				
+				gender = "male";
+				metabolismRate = 0.015;
+				bodyWater = 0.58;
+					
 				var fade1:Tween = new Tween(manButton, 0.3);
 				fade1.fadeTo(0);
 				
@@ -237,9 +233,9 @@ package screens
 			nextButton = new Button();
 			nextButton.addEventListener(starling.events.Event.TRIGGERED, function():void
 			{
-				bodyWeight = Number(weightStepper.value) / 2.20;
-				
 				nextButton.removeEventListener(starling.events.Event.TRIGGERED, function():void{});
+
+				bodyWeight = Number(weightStepper.value) / 2.20;
 				
 				var stepperFadeOut:Tween = new Tween(weightStepper, 0.3);
 				stepperFadeOut.fadeTo(0);
@@ -323,10 +319,10 @@ package screens
 			nextButton.layoutData = new AnchorLayoutData(NaN, NaN, NaN, NaN, 0, 100);
 			nextButton.addEventListener(starling.events.Event.TRIGGERED, function():void
 			{
-				standardDrinks = quantityList.selectedItem.label;
-				
 				nextButton.removeEventListener(starling.events.Event.TRIGGERED, function():void{});
 				
+				standardDrinks = quantityList.selectedItem.label;
+								
 				var quantityFadeOut:Tween = new Tween( quantityList, 0.3);
 				quantityFadeOut.fadeTo(0);
 				Starling.juggler.add(quantityFadeOut);
@@ -371,7 +367,6 @@ package screens
 			alertIcon.width = alertIcon.height = 250;
 			alertIcon.alpha = 0;
 			alertIcon.color = 0xFFFFFF;
-			alertIcon.snapToPixels = true;
 			this.addChild(alertIcon);
 						
 			var description:Label = new Label();
@@ -484,7 +479,6 @@ description.alpha = 0;
 			doneIcon.source = "assets/icons/ic_done_white_36dp.png";
 			doneIcon.width = 30;
 			doneIcon.height = 30;
-			doneIcon.snapToPixels = true;
 			
 			var doneButton:Button = new Button();
 			doneButton.width = 50;

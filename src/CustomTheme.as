@@ -27,7 +27,6 @@ package
 	import feathers.core.FeathersControl;
 	import feathers.core.ITextEditor;
 	import feathers.core.ITextRenderer;
-	import feathers.skins.SmartDisplayObjectStateValueSelector;
 	import feathers.themes.StyleNameFunctionTheme;
 	
 	import starling.display.Quad;
@@ -260,13 +259,10 @@ package
 		
 		private function setItemRendererStyles(renderer:DefaultListItemRenderer):void
 		{
-			var skinSelector:SmartDisplayObjectStateValueSelector = new SmartDisplayObjectStateValueSelector();
-			
-			skinSelector.defaultValue = 0x333333;
-			skinSelector.defaultSelectedValue = 0x00E8ED;
-			skinSelector.setValueForState(0x00E8ED, Button.STATE_DOWN, false);
-			renderer.stateToSkinFunction = skinSelector.updateValue;
-			
+			renderer.defaultSkin = new Quad(3, 3, 0x333333);
+			renderer.defaultSelectedSkin = new Quad(3, 3, 0x00E8ED);
+			renderer.downSkin = new Quad(3, 3, 0x00E8ED);
+		
 			renderer.horizontalAlign = Button.HORIZONTAL_ALIGN_LEFT;
 			renderer.paddingLeft = 10;
 			renderer.paddingRight = 0;
@@ -293,7 +289,6 @@ package
 				var icon:ImageLoader = new ImageLoader();
 				icon.source = "assets/icons/next.png";
 				icon.width = icon.height = 30;
-				icon.snapToPixels = true;
 				
 				var button:Button = new Button();
 				button.defaultIcon = icon;
@@ -307,7 +302,6 @@ package
 				var icon:ImageLoader = new ImageLoader();
 				icon.source = "assets/icons/prev.png";
 				icon.width = icon.height = 30;
-				icon.snapToPixels = true;
 				
 				var button:Button = new Button();
 				button.defaultIcon = icon;
@@ -377,12 +371,9 @@ package
 				renderer.minHeight = 50;
 				renderer.minWidth = 50;
 				
-				
-				var skinSelector:SmartDisplayObjectStateValueSelector = new SmartDisplayObjectStateValueSelector();
-				skinSelector.defaultValue = 0x333333;
-				skinSelector.defaultSelectedValue = 0x00E8ED;
-				skinSelector.setValueForState(0x00E8ED, Button.STATE_DOWN, false);
-				renderer.stateToSkinFunction = skinSelector.updateValue;
+				renderer.defaultSkin = new Quad(3, 3, 0x333333);
+				renderer.defaultSelectedSkin = new Quad(3, 3, 0x00E8ED);
+				renderer.downSkin = new Quad(3, 3, 0x00E8ED);
 				
 				return renderer;				
 			}

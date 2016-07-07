@@ -79,7 +79,6 @@ package servicesScreens
 			var downloadIcon:ImageLoader = new ImageLoader();
 			downloadIcon.source = "assets/icons/ic_get_app_white_36dp.png";
 			downloadIcon.width = downloadIcon.height = 30;
-			downloadIcon.snapToPixels = true;
 			
 			var downloadButton:Button = new Button();
 			downloadButton.width = downloadButton.height = 50;
@@ -94,7 +93,6 @@ package servicesScreens
 						
 			var yelpLogo:ImageLoader = new ImageLoader();
 			yelpLogo.source = "assets/icons/yelp_logo_large.png";
-			yelpLogo.snapToPixels = true;
 			yelpLogo.height = 30;
 			yelpLogo.minWidth = 45;
 			this.headerProperties.centerItems = new <DisplayObject>[yelpLogo];
@@ -102,7 +100,6 @@ package servicesScreens
 			var doneIcon:ImageLoader = new ImageLoader();
 			doneIcon.source = "assets/icons/ic_done_white_36dp.png";
 			doneIcon.width = doneIcon.height = 30;
-			doneIcon.snapToPixels = true;
 			
 			var doneButton:Button = new Button();
 			doneButton.width = doneButton.height = 50;
@@ -113,22 +110,18 @@ package servicesScreens
 			
 			var barsIcon:ImageLoader = new ImageLoader();
 			barsIcon.width = barsIcon.height = 30;
-			barsIcon.snapToPixels = true;
 			barsIcon.source = "assets/icons/ic_local_bar_white_48dp.png";
 			
 			var taxiIcon:ImageLoader = new ImageLoader();
 			taxiIcon.width = taxiIcon.height = 30;
-			taxiIcon.snapToPixels = true;
 			taxiIcon.source = "assets/icons/ic_local_taxi_white_48dp.png";
 			
 			var hotelIcon:ImageLoader = new ImageLoader();
 			hotelIcon.width = hotelIcon.height = 30;
-			hotelIcon.snapToPixels = true;
 			hotelIcon.source = "assets/icons/ic_local_hotel_white_48dp.png";
 			
 			var hospitalIcon:ImageLoader = new ImageLoader();
 			hospitalIcon.width = hospitalIcon.height = 30;
-			hospitalIcon.snapToPixels = true;
 			hospitalIcon.source = "assets/icons/ic_local_hospital_white_36dp.png";
 			
 			mainTabBar = new TabBar();
@@ -155,14 +148,17 @@ package servicesScreens
 				{					
 					return item.name + "\n" + item.location.address;
 				}
-				
-				renderer.iconFunction = function(item:Object):ImageLoader
+													
+				renderer.iconLoaderFactory = function():ImageLoader
 				{
 					var image:ImageLoader = new ImageLoader();
-					image.source = item.image_url;
 					image.width = image.height = 50;
-					image.snapToPixels = true;
 					return image;
+				}
+					
+				renderer.iconSourceFunction = function(item:Object):String
+				{
+					return 	item.image_url;
 				}
 				
 				renderer.accessoryFunction = function(item:Object):Button
@@ -172,7 +168,6 @@ package servicesScreens
 					image.width = 70;
 					image.height = 30;
 					image.paddingRight = 10;
-					image.snapToPixels = true;
 					
 					var button:Button = new Button();
 					button.defaultIcon = image;
@@ -208,7 +203,6 @@ package servicesScreens
 			myBusy.visible = false;
 			myBusy.pivotX = myBusy.width  * 0.5;
 			myBusy.pivotY = myBusy.height * 0.5;
-			myBusy.snapToPixels = true;
 			this.addChild(myBusy);
 			
 			var busyTween:Tween = new Tween(myBusy, 5.0);
